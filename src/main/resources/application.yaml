@@ -1,0 +1,10 @@
+db-host: db
+
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${db-host}:5432/demo
+    username: postgres
+    password: postgres
+
