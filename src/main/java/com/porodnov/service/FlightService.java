@@ -15,7 +15,7 @@ public class FlightService {
     private final DaoFlight daoFlight;
 
     public List<Flight> getFlight(FlightFilter flightFilter) {
-        return daoFlight.getDaoFlightFilter(flightFilter);
+        return daoFlight.getFlightInformation(flightFilter);
     }
 
 }

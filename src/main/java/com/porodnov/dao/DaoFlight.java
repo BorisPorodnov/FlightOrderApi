@@ -17,8 +17,9 @@ public class DaoFlight {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<Flight> getDaoFlightFilter(FlightFilter flightFilter) {
-        String sql = " SELECT * " +
+    public List<Flight> getFlightInformation(FlightFilter flightFilter) {
+        String sql =
+            " SELECT * " +
             " FROM flights_v f " +
             " WHERE f.departure_city = :departure " +
             " AND f.arrival_city = :destination " +
