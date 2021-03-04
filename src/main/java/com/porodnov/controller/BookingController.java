@@ -16,7 +16,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping("/bookings")
-    public List<BookingResponse> bookingsFlights(@RequestBody List<BookingFlight> bookingFlight){
+    public List<BookingResponse> bookingsFlights
+        (@RequestBody List<BookingFlight> bookingFlight){
         return bookingService.getBooking(bookingFlight);
     }
 }

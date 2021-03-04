@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class DaoFlight {
+public class FlightDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 

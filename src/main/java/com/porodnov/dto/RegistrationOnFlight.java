@@ -6,12 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookingFlight {
-    private String name;
-    private String passport;
-    private String contacts;
+public class RegistrationOnFlight {
     @JsonProperty("flight_id")
     private int flightId;
-    @JsonProperty("fare_conditions")
-    private String fareCondition;
+    @JsonProperty("seat_no")
+    private String seatNo;
 }

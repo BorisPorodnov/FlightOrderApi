@@ -15,6 +15,7 @@ public class BookingService {
     private final BookingDao bookingDao;
 
     public List<BookingResponse> getBooking(List<BookingFlight> bookingFlight) {
+
         return bookingDao.getBookingTicket(bookingFlight);
     }
 

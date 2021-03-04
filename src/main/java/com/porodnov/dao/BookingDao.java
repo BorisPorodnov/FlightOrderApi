@@ -22,11 +22,52 @@ public class BookingDao {
 
     public List<BookingResponse> getBookingTicket(List<BookingFlight> bookingFlight) {
 
-        Integer seqBookRef = jdbcTemplate.queryForObject("SELECT nextval('book_ref_seq')", EmptySqlParameterSource.INSTANCE, Integer.class);
-        String seqTicketNo = jdbcTemplate.queryForObject("SELECT nextval('ticket_no_seq')", EmptySqlParameterSource.INSTANCE, String.class);
+        List list = new ArrayList<>();
+
+        Integer seqBookRef =
+            jdbcTemplate.queryForObject
+                ("SELECT nextval('book_ref_seq')", EmptySqlParameterSource.INSTANCE, Integer.class);
+        String seqTicketNo =
+            jdbcTemplate.queryForObject
+                ("SELECT nextval('ticket_no_seq')", EmptySqlParameterSource.INSTANCE, String.class);
 
         LocalDateTime localDateTime = LocalDateTime.now();
 
+        creatingInBookingTable(seqBookRef, localDateTime);
+        creatingInTableTicketsBooking(bookingFlight, seqBookRef, seqTicketNo);
+        creatingInTableTicketFlightsBooking(bookingFlight, seqTicketNo);
+
+        list.add(new BookingResponse(seqBookRef, seqTicketNo));
+
+        return list;
+    }
+
+    public void creatingInTableTicketFlightsBooking(List<BookingFlight> bookingFlight, String seqTicketNo) {
+        String sql =
+                "INSERT INTO ticket_flights (ticket_no, flight_id, fare_conditions, amount) " +
+                "VALUES      (:seqTicketNo, :flightId, :fareCondition, 0) ";
+
+        MapSqlParameterSource mapSql = new MapSqlParameterSource();
+        mapSql.addValue("seqTicketNo", seqTicketNo);
+        mapSql.addValue("flightId", bookingFlight.get(0).getFlightId());
+        mapSql.addValue("fareCondition", bookingFlight.get(0).getFareCondition());
+        jdbcTemplate.update(sql, mapSql);
+    }
+
+    public void creatingInTableTicketsBooking(List<BookingFlight> bookingFlight, Integer seqBookRef, String seqTicketNo) {
+        String sql=
+                " INSERT INTO tickets (ticket_no, book_ref, passenger_id, passenger_name) " +
+                " VALUES(:seqTicketNo, :seqBookRef, :pass, :name); ";
+
+        MapSqlParameterSource mapParam1 = new MapSqlParameterSource();
+        mapParam1.addValue("seqTicketNo", seqTicketNo);
+        mapParam1.addValue("seqBookRef", seqBookRef);
+        mapParam1.addValue("pass", bookingFlight.get(0).getPassport());
+        mapParam1.addValue("name", bookingFlight.get(0).getName());
+        jdbcTemplate.update(sql, mapParam1);
+    }
+
+    public void creatingInBookingTable(Integer seqBookRef, LocalDateTime localDateTime) {
         String sql =
                 " INSERT INTO bookings " +
                 " (book_ref, book_date, total_amount) " +
@@ -37,32 +78,5 @@ public class BookingDao {
         mapParam.addValue("seqBookRef", seqBookRef);
         mapParam.addValue("localDateTime", localDateTime);
         jdbcTemplate.update(sql, mapParam);
-
-        sql =
-                " INSERT INTO tickets (ticket_no, book_ref, passenger_id, passenger_name) " +
-                " VALUES(:seqTicketNo, :seqBookRef, :pass, :name); ";
-
-        MapSqlParameterSource mapParam1 = new MapSqlParameterSource();
-        mapParam1.addValue("seqTicketNo", seqTicketNo);
-        mapParam1.addValue("seqBookRef", seqBookRef);
-        mapParam1.addValue("pass", bookingFlight.get(0).getPassport());
-        mapParam1.addValue("name", bookingFlight.get(0).getName());
-        jdbcTemplate.update(sql, mapParam1);
-
-        sql =
-                "INSERT INTO ticket_flights (ticket_no, flight_id, fare_conditions, amount) " +
-                "VALUES      (:seqTicketNo, :flightId, :fareCondition, 0) ";
-
-        MapSqlParameterSource mapSql = new MapSqlParameterSource();
-        mapSql.addValue("seqTicketNo", seqTicketNo);
-        mapSql.addValue("flightId", bookingFlight.get(0).getFlightId());
-        mapSql.addValue("fareCondition", bookingFlight.get(0).getFareCondition());
-        jdbcTemplate.update(sql, mapSql);
-
-        List list = new ArrayList<>();
-
-        list.add(new BookingResponse(seqBookRef, seqTicketNo));
-
-        return list;
     }
 }

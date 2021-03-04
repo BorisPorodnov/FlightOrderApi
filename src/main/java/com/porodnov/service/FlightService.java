@@ -1,6 +1,6 @@
 package com.porodnov.service;
 
-import com.porodnov.dao.DaoFlight;
+import com.porodnov.dao.FlightDao;
 import com.porodnov.dto.FlightFilter;
 import com.porodnov.model.Flight;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlightService {
 
-    private final DaoFlight daoFlight;
+    private final FlightDao daoFlight;
 
     public List<Flight> getFlight(FlightFilter flightFilter) {
+
         return daoFlight.getFlightInformation(flightFilter);
     }
 
