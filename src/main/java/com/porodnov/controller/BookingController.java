@@ -17,7 +17,7 @@ public class BookingController {
 
     @PostMapping("/bookings")
     public List<BookingResponse> bookingsFlights
-        (@RequestBody List<BookingFlight> bookingFlight){
+        (@RequestBody List<BookingFlight> bookingFlight) {
         return bookingService.getBooking(bookingFlight);
     }
 }

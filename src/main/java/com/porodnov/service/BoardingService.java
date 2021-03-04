@@ -15,4 +15,5 @@ public class BoardingService {
     public void getBoardingRegistration(RegistrationOnFlight registrationOnFlight) {
         boardingDao.getBoardingPass(registrationOnFlight);
     }
+
 }

@@ -16,9 +16,9 @@ public class RegistrationsBoardingController {
 
     private final BoardingService boardingService;
 
-    @PostMapping ("/boarding-pass")
-    public void getRegistrationBoarding(@RequestBody RegistrationOnFlight registrationOnFlight){
-
-         boardingService.getBoardingRegistration(registrationOnFlight);
+    @PostMapping("/boarding-pass")
+    public void getRegistrationBoarding(@RequestBody RegistrationOnFlight registrationOnFlight) {
+        boardingService.getBoardingRegistration(registrationOnFlight);
     }
+
 }

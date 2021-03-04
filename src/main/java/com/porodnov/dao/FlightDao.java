@@ -20,11 +20,11 @@ public class FlightDao {
     public List<Flight> getFlightInformation(FlightFilter flightFilter) {
         String sql =
             " SELECT * " +
-            " FROM flights_v f " +
-            " WHERE f.departure_city = :departure " +
-            " AND f.arrival_city = :destination " +
-            " AND f.scheduled_departure_local > :start " +
-            " AND f.scheduled_departure_local < :end ";
+                " FROM flights_v f " +
+                " WHERE f.departure_city = :departure " +
+                " AND f.arrival_city = :destination " +
+                " AND f.scheduled_departure_local > :start " +
+                " AND f.scheduled_departure_local < :end ";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("departure", flightFilter.getDeparture());
@@ -40,7 +40,7 @@ public class FlightDao {
             .setDepartureAirport(rs.getString("departure_airport"))
             .setArrivalAirport(rs.getString("arrival_airport"))
             .setScheduledDeparture(rs.getObject("scheduled_departure", OffsetDateTime.class))
-            .setScheduledArrival(rs.getObject("scheduled_arrival",OffsetDateTime.class));
+            .setScheduledArrival(rs.getObject("scheduled_arrival", OffsetDateTime.class));
 
         return jdbcTemplate.query(sql, parameters, responseMapper);
     }

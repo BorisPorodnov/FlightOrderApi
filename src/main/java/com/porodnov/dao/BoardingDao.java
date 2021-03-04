@@ -29,4 +29,5 @@ public class BoardingDao {
         map.addValue("seqBoardingPasses", seqBoardingPasses);
         jdbcTemplate.update(sql, map);
     }
+
 }

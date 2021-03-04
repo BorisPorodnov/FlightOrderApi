@@ -44,7 +44,7 @@ public class BookingDao {
 
     public void creatingInTableTicketFlightsBooking(List<BookingFlight> bookingFlight, String seqTicketNo) {
         String sql =
-                "INSERT INTO ticket_flights (ticket_no, flight_id, fare_conditions, amount) " +
+            "INSERT INTO ticket_flights (ticket_no, flight_id, fare_conditions, amount) " +
                 "VALUES      (:seqTicketNo, :flightId, :fareCondition, 0) ";
 
         MapSqlParameterSource mapSql = new MapSqlParameterSource();
@@ -55,8 +55,8 @@ public class BookingDao {
     }
 
     public void creatingInTableTicketsBooking(List<BookingFlight> bookingFlight, Integer seqBookRef, String seqTicketNo) {
-        String sql=
-                " INSERT INTO tickets (ticket_no, book_ref, passenger_id, passenger_name) " +
+        String sql =
+            " INSERT INTO tickets (ticket_no, book_ref, passenger_id, passenger_name) " +
                 " VALUES(:seqTicketNo, :seqBookRef, :pass, :name); ";
 
         MapSqlParameterSource mapParam1 = new MapSqlParameterSource();
@@ -69,7 +69,7 @@ public class BookingDao {
 
     public void creatingInBookingTable(Integer seqBookRef, LocalDateTime localDateTime) {
         String sql =
-                " INSERT INTO bookings " +
+            " INSERT INTO bookings " +
                 " (book_ref, book_date, total_amount) " +
                 " VALUES" +
                 " (:seqBookRef, :localDateTime, 0);";
@@ -79,4 +79,5 @@ public class BookingDao {
         mapParam.addValue("localDateTime", localDateTime);
         jdbcTemplate.update(sql, mapParam);
     }
+
 }
